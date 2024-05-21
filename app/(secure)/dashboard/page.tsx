@@ -17,13 +17,11 @@ import { useEffect } from "react";
 
 export default function page() {
   const userService = useUserService();
-  const countryService = useCountryService();
   const user = userService.currentUser;
 
   useEffect(() => {
     async function data() {
       await userService.getCurrent();
-      await countryService.getAllCountry();
     }
     data();
   }, []);

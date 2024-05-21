@@ -4,7 +4,6 @@ import { useUserService } from "@/app/_services";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-export default RegisterForm;
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,7 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
-export function RegisterForm() {
+export default function RegisterForm() {
   const userService = useUserService();
 
   // get functions to build form with useForm() hook
