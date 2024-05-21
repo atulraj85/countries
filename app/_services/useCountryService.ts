@@ -32,19 +32,25 @@ function useCountryService(): ICountryService {
 
         const res = await fetch.post(url);
         const data = await res.json();
-        setCountryDetails(data);
+        return data;
       } catch (error) {
         console.error("Error fetching countries:", error);
       }
     },
 
+    update: async (id, params) => {
+      console.log(id);
+      console.log(params);
+      await fetch.put(`/api/countries/${id}`, params);
+    },
+
     getAllCountry: async () => {
       try {
-        const res = await fetch(`/api/countries/names`, {
-          cache: "no-store",
-        });
-        const data = await res.json();
-        setCountries(data);
+        // const res = await fetch(`/api/countries/names`, {
+        //   cache: "no-store",
+        // });
+        // const data = await res.json();
+        // setCountries(data);
       } catch (error) {
         console.error("Error fetching countries:", error);
       }
@@ -53,6 +59,7 @@ function useCountryService(): ICountryService {
 }
 
 interface ICountryService {
+  update: (id: string, params: any) => Promise<void>;
   countryDetails: {};
   countries: [];
   fetchCountry: (country: string) => Promise<void>;

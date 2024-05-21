@@ -8,6 +8,10 @@ import Sidebar from "@/components/layout/sidebar";
 
 export default Layout;
 
+export const metadata = {
+  title: "Global Biz Dashboard",
+};
+
 function Layout({ children }: { children: React.ReactNode }) {
   // if not logged in redirect to login page
   if (!auth.isAuthenticated()) {

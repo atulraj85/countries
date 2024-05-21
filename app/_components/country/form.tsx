@@ -1,5 +1,7 @@
 "use client";
 
+import { UpdateCountry } from "@/app/_services/countries";
+import { useCountryService } from "@/app/_services/useCountryService";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 
@@ -9,12 +11,26 @@ interface formProps {
 }
 
 export default function Form({ formData, form }: formProps) {
-  const { register, handleSubmit } = useForm({ defaultValues: formData });
+  const countryService = useCountryService();
 
+  const { register, handleSubmit } = useForm({ defaultValues: formData });
   function onSubmit(data: any) {
-    console.log("Form submitted:", data);
+    const id = data["_id"];
+    console.log("Spelitted data", splitValues(data));
+    UpdateCountry(id, splitValues(data));
   }
 
+  function splitValues(data: any) {
+    for (const key in data) {
+      if (key === "_id") {
+        delete data[key];
+      }
+      if (typeof data[key] === "string") {
+        data[key] = data[key].split("\n");
+      }
+    }
+    return data;
+  }
   return (
     <div>
       <div>
@@ -24,11 +40,6 @@ export default function Form({ formData, form }: formProps) {
               <div className="grid gap-x-4 gap-y-8 grid-cols-3">
                 {form.map((field, id) => {
                   const { label, name } = field;
-
-                  console.log("name", name);
-                  //  console.log("input", input);
-                  console.log("value", formData[name]);
-
                   if (name === "_id") {
                     return;
                   } else {
@@ -54,7 +65,9 @@ export default function Form({ formData, form }: formProps) {
                   }
                 })}
               </div>
-              <Button type="submit">Submit</Button>
+              <div className="m-9">
+                <Button type="submit">Submit</Button>
+              </div>
             </form>
           </div>
         ) : (

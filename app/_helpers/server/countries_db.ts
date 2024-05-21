@@ -1,3 +1,4 @@
+import { ObjectId } from "mongodb";
 import mongoose from "mongoose";
 
 export async function checkDatabaseConnection() {
@@ -34,7 +35,6 @@ async function updateCountry(id: string, updates: any) {
     { _id: new mongoose.Types.ObjectId(id) },
     { $set: updates }
   );
-
   if (matchedCount === 1 && modifiedCount === 1) {
     return true;
   }
@@ -72,11 +72,7 @@ async function getCountryNames() {
 }
 
 async function getCountryByID(id: mongoose.Types.ObjectId) {
-  console.log(id);
   const country = await Countries.findOne({ _id: id });
-
-  console.log(country);
-
   return country;
 }
 

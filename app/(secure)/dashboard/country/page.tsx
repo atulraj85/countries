@@ -15,6 +15,7 @@ import Form from "@/app/_components/country/form";
 import EntityDetails from "@/app/_components/country/country";
 import { createFormData } from "@/app/_helpers/client/formData";
 import { fetchCountry } from "@/app/_services/countries";
+import { useCountryService } from "@/app/_services/useCountryService";
 
 type Country = {
   country: string;
@@ -27,6 +28,8 @@ const Page = () => {
     country: "",
   });
   const [countryDetails, setCountryDetails] = useState(null);
+
+  const countryService = useCountryService();
 
   useEffect(() => {
     const fetchCountries = async () => {
@@ -55,7 +58,6 @@ const Page = () => {
     event.preventDefault();
     const { country } = formData;
     const data: any = await fetchCountry(country);
-    console.log(data);
     setCountryDetails(data);
     const formed = createFormData(data);
 
