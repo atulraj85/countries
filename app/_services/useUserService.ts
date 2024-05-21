@@ -34,7 +34,7 @@ function useUserService(): IUserService {
 
                 // get return url from query parameters or default to '/'
                 const returnUrl = searchParams.get('returnUrl') || '/';
-                router.push(returnUrl);
+                router.push("/dashboard");
             } catch (error: any) {
                 alertService.error(error);
             }

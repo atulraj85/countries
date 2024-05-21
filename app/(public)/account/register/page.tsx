@@ -1,65 +1,105 @@
-'use client';
+"use client";
 
-import { useUserService } from '@/app/_services';
-import Link from 'next/link';
-import { useForm } from 'react-hook-form';
+import { useUserService } from "@/app/_services";
+import Link from "next/link";
+import { useForm } from "react-hook-form";
 
+export default RegisterForm;
 
-export default Register;
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
-function Register() {
-    const userService = useUserService();
+export function RegisterForm() {
+  const userService = useUserService();
 
-    // get functions to build form with useForm() hook
-    const { register, handleSubmit, formState } = useForm();
-    const { errors } = formState;
+  // get functions to build form with useForm() hook
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
 
-    const fields = {
-        firstName: register('firstName', { required: 'First Name is required' }),
-        lastName: register('lastName', { required: 'Last Name is required' }),
-        username: register('username', { required: 'Username is required' }),
-        password: register('password', {
-            required: 'Password is required',
-            minLength: { value: 6, message: 'Password must be at least 6 characters' }
-        })
-    }
+  const fields = {
+    firstName: register("firstName", {
+      required: "First Name is required",
+    }),
+    lastName: register("lastName", { required: "Last Name is required" }),
+    username: register("username", { required: "Username is required" }),
+    password: register("password", {
+      required: "Password is required",
+      minLength: {
+        value: 6,
+        message: "Password must be at least 6 characters",
+      },
+    }),
+  };
 
-    async function onSubmit(user: any) {
-        await userService.register(user);
-    }
+  async function onSubmit(user: any) {
+    await userService.register(user);
+  }
 
-    return (
-        <div className="card">
-            <h4 className="card-header">Register</h4>
-            <div className="card-body">
-                <form onSubmit={handleSubmit(onSubmit)}>
-                    <div className="mb-3">
-                        <label className="form-label">First Name</label>
-                        <input {...fields.firstName} type="text" className={`form-control ${errors.firstName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.firstName?.message?.toString()}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Last Name</label>
-                        <input {...fields.lastName} type="text" className={`form-control ${errors.lastName ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.lastName?.message?.toString()}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Username</label>
-                        <input {...fields.username} type="text" className={`form-control ${errors.username ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.username?.message?.toString()}</div>
-                    </div>
-                    <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input {...fields.password} type="password" className={`form-control ${errors.password ? 'is-invalid' : ''}`} />
-                        <div className="invalid-feedback">{errors.password?.message?.toString()}</div>
-                    </div>
-                    <button disabled={formState.isSubmitting} className="btn btn-primary">
-                        {formState.isSubmitting && <span className="spinner-border spinner-border-sm me-1"></span>}
-                        Register
-                    </button>
-                    <Link href="/account/login" className="btn btn-link">Cancel</Link>
-                </form>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Card className="mx-auto max-w-sm">
+        <CardHeader>
+          <CardTitle className="text-xl">Sign Up</CardTitle>
+          <CardDescription>
+            Enter your information to create an account
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="first-name">First name</Label>
+                <Input
+                  id="first-name"
+                  placeholder="Max"
+                  required
+                  {...fields.firstName}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="last-name">Last name</Label>
+                <Input
+                  id="last-name"
+                  placeholder="Robinson"
+                  required
+                  {...fields.lastName}
+                />
+              </div>
             </div>
-        </div>
-    );
+            <div className="grid gap-2">
+              <Label htmlFor="username">Username</Label>
+              <Input
+                id="username"
+                type="text"
+                placeholder="Username"
+                required
+                {...fields.username}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input id="password" type="password" {...fields.password} />
+            </div>
+            <Button type="submit" className="w-full">
+              Create an account
+            </Button>
+          </div>
+          <div className="mt-4 text-center text-sm">
+            Already have an account?
+            <Link href="#" className="underline">
+              Sign in
+            </Link>
+          </div>
+        </CardContent>
+      </Card>
+    </form>
+  );
 }

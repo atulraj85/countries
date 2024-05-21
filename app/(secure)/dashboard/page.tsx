@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
-import { useUserService } from "../_services";
-import { Spinner } from "../_components";
+import { useUserService } from "../../_services";
+import { Spinner } from "../../_components";
 
 export default Home;
 

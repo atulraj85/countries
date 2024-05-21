@@ -1,8 +1,8 @@
-import { Navbar } from "./_components/navbar/Navbar";
-import "./globals.css";
+import { Navbar } from "../_components/navbar/Navbar";
+import "../globals.css";
 
 export const metadata = {
-  title: "Next.js 13 - User Registration and Login Example",
+  title: "Global Biz",
 };
 
 export default Layout;
@@ -11,7 +11,7 @@ function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Navbar/>
+        <Navbar />
         {children}
       </body>
     </html>

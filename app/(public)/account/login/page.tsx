@@ -4,9 +4,22 @@ import { useUserService } from "@/app/_services";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 
-export default Login;
+export default LoginForm;
 
-function Login() {
+
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
+export function LoginForm() {
   const userService = useUserService();
 
   // get functions to build form with useForm() hook
@@ -23,43 +36,39 @@ function Login() {
   }
 
   return (
-    <div className="card">
-      <h4 className="card-header">Login</h4>
-      <div className="card-body">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-3">
-            <label className="form-label">Username</label>
-            <input
-              {...fields.username}
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <Card className="w-full max-w-sm mx-auto">
+        <CardHeader>
+          <CardTitle className="text-2xl">Login</CardTitle>
+          <CardDescription>
+            Enter your username below to login to your account.
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-4">
+          <div className="grid gap-2">
+            <Label htmlFor="email">Username</Label>
+            <Input
+              id="username"
               type="text"
-              className={`form-control ${errors.username ? "is-invalid" : ""}`}
+              placeholder="username"
+              required
+              {...fields.username}
             />
-            <div className="invalid-feedback">
-              {errors.username?.message?.toString()}
-            </div>
           </div>
-          <div className="mb-3">
-            <label className="form-label">Password</label>
-            <input
-              {...fields.password}
+          <div className="grid gap-2">
+            <Label htmlFor="password">Password</Label>
+            <Input
+              id="password"
               type="password"
-              className={`form-control ${errors.password ? "is-invalid" : ""}`}
+              required
+              {...fields.password}
             />
-            <div className="invalid-feedback">
-              {errors.password?.message?.toString()}
-            </div>
           </div>
-          <button disabled={formState.isSubmitting} className="btn btn-primary">
-            {formState.isSubmitting && (
-              <span className="spinner-border spinner-border-sm me-1"></span>
-            )}
-            Login
-          </button>
-          <Link href="/account/register" className="btn btn-link">
-            Register
-          </Link>
-        </form>
-      </div>
-    </div>
+        </CardContent>
+        <CardFooter>
+          <Button className="w-full">Sign in</Button>
+        </CardFooter>
+      </Card>
+    </form>
   );
 }

@@ -36,10 +36,10 @@ const Navbar = () => {
           <>
             <li>
               {/* <Link href="/sign-in">{t("sign_in")}</Link> */}
-              <Link href="/sign-in">Sign In</Link>
+              <Link href="/account/login">Sign In</Link>
             </li>
             <li>
-              <Link className={buttonVariants()} href="/sign-up">
+              <Link className={buttonVariants()} href="/account/register">
                 Sign Up
               </Link>
             </li>
