@@ -116,4 +116,9 @@ export const navItems: NavItem[] = [
     href: "/dashboard",
     label: "Dashboard",
   },
+  {
+    title: "Country",
+    href: "/dashboard/country",
+    label: "Country",
+  },
 ];

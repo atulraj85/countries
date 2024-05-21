@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { useTranslations } from "next-intl";
 
 import { buttonVariants } from "@/components/ui/button";
 
@@ -7,14 +6,6 @@ import { CenteredMenu } from "./CenteredMenu";
 import { Section } from "./Section";
 
 const navbar = [
-  {
-    name: "Features",
-    link: "/",
-  },
-  {
-    name: "Features",
-    link: "/",
-  },
   {
     name: "Features",
     link: "/",
